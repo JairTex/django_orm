@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -12,8 +13,9 @@ class Chassi(models.Model):
         return self.numero
 
 class Carro(models.Model):
-    chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE) #1 to 1
-    montadora = models.ForeignKey('Montadora', on_delete=models.CASCADE) #1 to m
+    chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE) # 1 to 1
+    montadora = models.ForeignKey('Montadora', on_delete=models.CASCADE) # 1 to m
+    motoristas = models.ManyToManyField(get_user_model()) # N to M
     modelo = models.CharField('Modelo', max_length=30, help_text='Informe o modelo do Carro')
     preco = models.DecimalField('Preço', max_digits=8, decimal_places=2, help_text='Informe o preço do carro')
 
